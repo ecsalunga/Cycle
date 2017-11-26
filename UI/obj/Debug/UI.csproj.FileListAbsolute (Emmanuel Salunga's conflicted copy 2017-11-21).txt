@@ -1,0 +1,5 @@
+/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/UI/bin/Debug/UI.dll
+/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/UI/bin/Debug/UI.pdb
+/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/UI/obj/Debug/UI.csproj.CoreCompileInputs.cache
+/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/UI/obj/Debug/UI.dll
+/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/UI/obj/Debug/UI.pdb
