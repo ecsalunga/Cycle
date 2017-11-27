@@ -21,12 +21,12 @@ namespace Cycle
         private void loadLocations()
         {
             int counter = 1;
-            int margin = 10;
             for (int y = 0; y < 10; y++)
             {
                 for (int x = 0; x < 10; x++)
                 {
-                    var grid = new Grid() { BackgroundColor = Color.Blue };
+                    var grid = new Grid() { BackgroundColor = (x % 2 == 0) ? Color.Blue : Color.Green };
+                    grid.Margin = new Thickness(10, 10, 10, 10);
 
                     grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                     grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
@@ -43,7 +43,8 @@ namespace Cycle
                     grid.Children.Add(bottomLeft, 1, 0);
                     grid.Children.Add(bottomRight, 1, 1);
 
-                    Rectangle rec = new Rectangle((x * (100 + margin)) + margin, (y * (100 + margin)) + margin, 100, 100);
+                    Rectangle rec = new Rectangle(x * 220, y * 220, 220, 220);
+
                     AbsoluteLayout.SetLayoutBounds(grid, rec);
                     this.alMain.Children.Add(grid);
                     counter++;
