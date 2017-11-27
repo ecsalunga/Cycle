@@ -1,6 +1,18 @@
+.vs
 
-Droid/bin
-Droid/obj
+Cycle.Core/bin
+Cycle.Core/obj
 
-IOS/bin
-IOS/obj
+Cycle/Cycle/bin
+Cycle/Cycle/obj
+
+Cycle/Cycle.Android/bin
+Cycle/Cycle.Android/obj
+
+Cycle/Cycle.iOS/bin
+Cycle/Cycle.iOS/obj
+
+Cycle/Cycle.UWP/bin
+Cycle/Cycle.UWP/obj
+
+packages
