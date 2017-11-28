@@ -38,7 +38,7 @@ namespace Cycle.Core.Models
             this.SizeSpan = 40;
             this.Speed = 500;
 
-            this.PlayerCount = 7;
+            this.PlayerCount = 4;
             this.PlayerResource = 100;
             this.PlayerMaterial = 100;
             this.PlayerArmy = 10;
