@@ -5,11 +5,13 @@ namespace Cycle.Core.Models
     {
         public string Empty { get; set; }
         public int EmptyId { get; set; }
+        public int Cycle { get; set; }
 
         public int X { get; set; }
         public int Y { get; set; }
         public int Margin { get; set; }
-        public int Side { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
         public int LevelSpan { get; set; }
 
         public int SizeBase { get; set; }
@@ -26,11 +28,13 @@ namespace Cycle.Core.Models
         {
             this.Empty = "empty";
             this.EmptyId = 0;
+            this.Cycle = 100;
 
             this.X = 10;
             this.Y = 10;
-            this.Margin = 10;
-            this.Side = 200;
+            this.Margin = 25;
+            this.Height = 200;
+            this.Width = 300;
 
             this.LevelSpan = 10;
 

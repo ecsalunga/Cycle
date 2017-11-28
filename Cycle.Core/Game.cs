@@ -12,12 +12,55 @@ namespace Cycle.Core
         public List<PlayerInfo> Players { get; set; }
         public Dictionary<int, LocationInfo> Locations { get; set; }
         private Random rnd = new Random();
-
+        public event Action OnCycle;
         public Game()
         {
             this.Config = new ConfigInfo();
             this.generateLocations(this.Config);
             this.generatePlayers(this.Config);
+
+            Xamarin.Forms.Device.StartTimer(TimeSpan.FromMilliseconds(this.Config.Speed), () =>
+            {
+                this.updateData();
+                // update move here...
+
+                if (this.OnCycle != null)
+                    this.OnCycle();
+                
+                return true;
+            });
+        }
+
+        private void updateData()
+        {
+            foreach (int key in this.Locations.Keys)
+            {
+                LocationInfo location = this.Locations[key];
+                if (location.PlayerId > 0)
+                {
+                    location.Current++;
+                    if (location.Current >= location.Cycle)
+                    {
+                        location.Current = 0;
+                        PlayerInfo player = GetPlayer(location.Id);
+
+                        // process player
+                        // Apply correct logic from config
+                        if(location.Type == LocationTypes.Base) {
+                            player.Material += location.Level;
+                            player.Resource += location.Level;
+                        }
+                        else
+                        {
+                            player.Material++;
+                            player.Resource++;
+                        }
+
+
+                        // process location build
+                    }
+                }
+            }
         }
 
         public LocationInfo GetLocation(int id)
@@ -79,6 +122,7 @@ namespace Cycle.Core
                     LocationInfo info = new LocationInfo(count, x, y);
                     info.PlayerId = config.EmptyId;
                     this.setRandomLocation(info);
+                    info.SetCycle(this.Config.Cycle);
                     this.Locations.Add(count, info);
                     count++;
                 }
