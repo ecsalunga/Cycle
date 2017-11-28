@@ -1,4 +1,0 @@
-/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/bin/iPhone/Debug/device-builds/iphone8.1-11.1.2/UI.iOS.app:/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/obj/iPhone/Debug/device-builds/iphone8.1-11.1.2/mtouch-cache/Link/UI.iOS.exe
-/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/bin/iPhone/Debug/device-builds/iphone8.1-11.1.2/UI.iOS.app:/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/obj/iPhone/Debug/device-builds/iphone8.1-11.1.2/mtouch-cache/Link/mscorlib.dll
-/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/bin/iPhone/Debug/device-builds/iphone8.1-11.1.2/UI.iOS.app:/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/obj/iPhone/Debug/device-builds/iphone8.1-11.1.2/mtouch-cache/Link/Xamarin.iOS.dll
-/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/bin/iPhone/Debug/device-builds/iphone8.1-11.1.2/UI.iOS.app:/Users/Emmanuel/Dropbox/Projects/Xamarin/Cycle/iOS/obj/iPhone/Debug/device-builds/iphone8.1-11.1.2/mtouch-cache/Link/System.dll

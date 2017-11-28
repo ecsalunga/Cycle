@@ -1,4 +1,0 @@
-UI.Droid.MainActivity, UI.Droid;md540df0684babd6f7968b2e47321934729.MainActivity
-UI.Droid.MainActivity, UI.Droid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md540df0684babd6f7968b2e47321934729.MainActivity
-UI.Droid.MainActivity;md540df0684babd6f7968b2e47321934729.MainActivity
-ui.droid.MainActivity;md540df0684babd6f7968b2e47321934729.MainActivity
