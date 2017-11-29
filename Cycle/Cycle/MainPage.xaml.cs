@@ -1,10 +1,6 @@
 ﻿using Cycle.Core;
 using Cycle.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,78 +16,95 @@ namespace Cycle
             InitializeComponent();
 
             this.Game = new Game();
+
+            this.alMain.Margin = new Thickness(25);
+            this.slMain.BackgroundColor = Color.Gray;
+
             this.loadLocations();
+
+            this.Game.OnCycle += Game_OnCycle;
         }
 
         private void loadLocations()
         {
-            foreach(int key in this.Game.Locations.Keys)
+            foreach (int key in this.Game.Locations.Keys)
             {
                 LocationInfo location = this.Game.Locations[key];
                 PlayerInfo player = this.Game.GetPlayer(location.Id);
 
-                Frame frame = new Frame();
-                frame.CornerRadius = 20;
-                frame.Margin = new Thickness(10);
+                int width = this.Game.Config.Width;
+                int height = this.Game.Config.Height;
 
-                if (player.Name == this.Game.Player.Name)
-                    frame.BackgroundColor = Color.Teal;
-                else if (player.Name == this.Game.Config.Empty)
-                    frame.BackgroundColor = Color.Green;
+                int adjustment = 0;
+                if (location.Size == SizeTypes.Large)
+                    adjustment = Convert.ToInt32(((width + height) / 2) * 0.05);
+                else if (location.Size == SizeTypes.Small)
+                    adjustment = Convert.ToInt32(((width + height) / 2) * -0.05);
+
+                // apply sizes
+                int widthAdjusted = width + adjustment;
+                int heigthAdjusted = height + adjustment;
+
+                Frame frame = new Frame();
+                frame.CornerRadius =  (float)(((widthAdjusted + heigthAdjusted) / 2) * 0.31);
+                frame.Margin = new Thickness(this.Game.Config.Margin);
+
+                if (location.Type == LocationTypes.Base)
+                    frame.BackgroundColor = Color.SteelBlue;
+                else if (location.Type == LocationTypes.Material)
+                    frame.BackgroundColor = Color.Gold;
                 else
-                    frame.BackgroundColor = Color.Red;
+                    frame.BackgroundColor = Color.Silver;
+
+                frame.StyleId = location.Id.ToString();
+                TapGestureRecognizer tap = new TapGestureRecognizer();
+                tap.Tapped += onTap;
+                frame.GestureRecognizers.Add(tap);
 
                 Grid grid = new Grid();
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.Margin = new Thickness(10);
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-                Label lblName = new Label { Text = player.Name, TextColor = Color.White };
-                Button btnUpgrage = new Button() { Text = "Upgrade" };
-                Button btnStats = new Button { Text = "Stats" };
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                Color color = Color.White;
+                if (player.Name == this.Game.Player.Name)
+                    color = Color.Green;
+                else if (player.Name != this.Game.Config.Empty)
+                    color = Color.Red;
+
+                Label lblName = new Label { Text = string.Format("{0} ({1},{2})", player.Name, location.X, location.Y), TextColor = color };
+                Label lblStats = new Label { Text = location.Size.ToString(), TextColor = color };
+                Label lblLocationType = new Label { Text = location.Type.ToString(), TextColor = color };
 
                 grid.Children.Add(lblName, 0, 0);
-                grid.Children.Add(btnUpgrage, 0, 1);
-                grid.Children.Add(btnStats, 1, 1);
-
-                Rectangle rec = new Rectangle(location.X * this.Game.Config.Side, location.Y * this.Game.Config.Side, this.Game.Config.Side, this.Game.Config.Side);
+                grid.Children.Add(lblStats, 0, 1);
+                grid.Children.Add(lblLocationType, 0, 2);
 
                 frame.Content = grid;
+                Rectangle rec = new Rectangle(location.X * width, location.Y * height, widthAdjusted, heigthAdjusted);
                 AbsoluteLayout.SetLayoutBounds(frame, rec);
                 this.alMain.Children.Add(frame);
             }
+        }
 
-            /*
-            int counter = 1;
-            for (int y = 0; y < 10; y++)
-            {
-                for (int x = 0; x < 10; x++)
-                {
-                    var grid = new Grid() { BackgroundColor = (x % 2 == 0) ? Color.Blue : Color.Green };
-                    grid.Margin = new Thickness(10, 10, 10, 10);
+        void onTap(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(((Element)sender).StyleId);
+            LocationInfo location = this.Game.GetLocation(id);
+            PlayerInfo player = this.Game.GetPlayer(id);
 
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            lblInfo.Text = string.Format("X: {0}, Y: {1}, Cycle: {2}", location.X, location.Y, location.Cycle);
+            lblArmy.Text = string.Format("Army: {0}", location.Army);
+            lblPlayer.Text = string.Format("Player: {0}", player.Name);
+        }
 
-                    Label name = new Label { Text = "Area: " + counter, TextColor = Color.White };
-                    Button upgrade = new Button() { Text = "Upgrade" };
-                    Button stats = new Button { Text = "Stats" };
-
-                    grid.Children.Add(name, 0, 0);
-                    grid.Children.Add(upgrade, 0, 1);
-                    grid.Children.Add(stats, 1, 1);
-
-                    Rectangle rec = new Rectangle(x * 220, y * 220, 220, 220);
-
-                    AbsoluteLayout.SetLayoutBounds(grid, rec);
-                    this.alMain.Children.Add(grid);
-                    counter++;
-                }
-            }
-            */
+        void Game_OnCycle()
+        {
+            lblMaterial.Text = string.Format("Material: {0}", this.Game.Player.Material);
+            lblResource.Text = string.Format("Resource: {0}", this.Game.Player.Resource);
         }
     }
 }

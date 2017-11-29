@@ -5,22 +5,22 @@ namespace Cycle.Core.Models
     {
         public string Empty { get; set; }
         public int EmptyId { get; set; }
-
+        public int Cycle { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public int Margin { get; set; }
-        public int Side { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
         public int LevelSpan { get; set; }
-
         public int SizeBase { get; set; }
         public int SizeSpan { get; set; }
         public int Speed { get; set; }
-
         public int PlayerCount { get; set; }
         public int PlayerResource { get; set; }
         public int PlayerMaterial { get; set; }
         public int PlayerArmy { get; set; }
         public int PlayerWorker { get; set; }
+        
 
         public ConfigInfo()
         {
@@ -29,14 +29,16 @@ namespace Cycle.Core.Models
 
             this.X = 10;
             this.Y = 10;
-            this.Margin = 10;
-            this.Side = 200;
+            this.Margin = 50;
+            this.Height = 275;
+            this.Width = 275;
 
             this.LevelSpan = 10;
 
             this.SizeBase = 10;
             this.SizeSpan = 40;
             this.Speed = 500;
+            this.Cycle = 20;
 
             this.PlayerCount = 4;
             this.PlayerResource = 100;

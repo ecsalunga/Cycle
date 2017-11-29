@@ -3,9 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Cycle.MainPage">
     <ContentPage Title="World">
-        <ScrollView Orientation="Both">
-            <AbsoluteLayout x:Name="alMain"></AbsoluteLayout>
-        </ScrollView>
+        <StackLayout>
+            <Grid Margin="5, 20, 5, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Label x:Name="lblMaterial" Text="Material" Grid.Row="0" Grid.Column="0" />
+                <Label x:Name="lblResource" Text="Resource" Grid.Row="0" Grid.Column="1" />
+            </Grid>
+            <ScrollView x:Name="slMain" Orientation="Both">
+                <AbsoluteLayout x:Name="alMain"></AbsoluteLayout>
+            </ScrollView>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Label x:Name="lblInfo" Text="Location" Grid.Row="0" Grid.Column="0" />
+                <Button Text="Action" BorderWidth="1" Grid.Row="0" Grid.Column="1"></Button>
+                <Label x:Name="lblPlayer" Text="Player" Grid.Row="1" Grid.Column="0" />
+                <Label x:Name="lblArmy" Text="Army" Grid.Row="1" Grid.Column="1" />
+            </Grid>
+        </StackLayout>
     </ContentPage>
     <ContentPage Title="Option">
         <Grid>
