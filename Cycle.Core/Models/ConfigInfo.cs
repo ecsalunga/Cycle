@@ -29,9 +29,9 @@ namespace Cycle.Core.Models
 
             this.X = 10;
             this.Y = 10;
-            this.Margin = 50;
-            this.Height = 275;
-            this.Width = 275;
+            this.Margin = 125;
+            this.Height = 400;
+            this.Width = 400;
 
             this.LevelSpan = 10;
 

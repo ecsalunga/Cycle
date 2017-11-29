@@ -1,10 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:local="clr-namespace:Cycle;assembly=Cycle"
              x:Class="Cycle.MainPage">
     <ContentPage Title="World">
         <StackLayout>
-           
             <Grid Margin="5, 20, 5, 5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -14,11 +15,12 @@
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Label x:Name="lblMaterial" Text="Material" Grid.Row="0" Grid.Column="0" />
-                <Label x:Name="lblResource" Text="Resource" Grid.Row="0" Grid.Column="1" />
+                <Label x:Name="lblFood" Text="Food" Grid.Row="0" Grid.Column="1" />
             </Grid>
             <ScrollView x:Name="slMain" Orientation="Both">
                 <AbsoluteLayout x:Name="alMain">
                     <Image x:Name="imgBackground" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" Aspect="AspectFill"/>
+                    <AbsoluteLayout x:Name="alLocations"></AbsoluteLayout>
                 </AbsoluteLayout>
             </ScrollView>
             <Grid Margin="5">
@@ -38,19 +40,6 @@
         </StackLayout>
     </ContentPage>
     <ContentPage Title="Option">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Text="Top Left" Grid.Row="0" Grid.Column="0" />
-            <Label Text="Top Right" Grid.Row="0" Grid.Column="1" />
-            <Label Text="Bottom Left" Grid.Row="1" Grid.Column="0" />
-            <Label Text="Bottom Right" Grid.Row="1" Grid.Column="1" />
-        </Grid>
+        <Button Text="Soon..."></Button>
     </ContentPage>
 </TabbedPage>

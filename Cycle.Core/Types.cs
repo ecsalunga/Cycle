@@ -12,6 +12,6 @@ namespace Cycle.Core
     {
         Base = 1,
         Material,
-        Resource,
+        Food,
     }
 }

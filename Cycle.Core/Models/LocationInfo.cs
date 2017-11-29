@@ -17,6 +17,7 @@ namespace Cycle.Core.Models
 
         public LocationTypes Type { get; set; }
         public SizeTypes Size { get; set; }
+        public bool IsOccupied { get; set; }
 
         public LocationInfo(int id, int x, int y)
         {
@@ -31,6 +32,7 @@ namespace Cycle.Core.Models
 
             this.Cycle = 100;
             this.Current = 0;
+            this.IsOccupied = false;
         }
 
         public void SetCycle(int cycle) {

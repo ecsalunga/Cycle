@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{AB21308A-4949-418F-ABC5-020A1BC3E6B5}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Cycle.Core/Models/ConfigInfo.cs">
+    <Files>
+      <File FileName="Cycle/Cycle/MainPage.xaml.cs" Line="37" Column="53" />
+      <File FileName="Cycle/Cycle/MainPage.xaml" Line="23" Column="56" />
+      <File FileName="Cycle.Core/Models/ConfigInfo.cs" Line="32" Column="30" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Cycle.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.063006024aa988621138ec32078d56e8c920f390" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Cycle.Android PreferredExecutionTarget="Android.Android_Accelerated_Nougat" />
+</Properties>
