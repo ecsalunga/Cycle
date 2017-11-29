@@ -1,38 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Cycle.MainPage">
     <ContentPage Title="World">
-        <StackLayout>
-            <Grid Margin="5, 20, 5, 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                </Grid.RowDefinitions>
-                <Label x:Name="lblMaterial" Text="Material" Grid.Row="0" Grid.Column="0" />
-                <Label x:Name="lblResource" Text="Resource" Grid.Row="0" Grid.Column="1" />
-            </Grid>
-            <ScrollView x:Name="slMain" Orientation="Both">
-                <AbsoluteLayout x:Name="alMain"></AbsoluteLayout>
-            </ScrollView>
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                </Grid.RowDefinitions>
-                <Label x:Name="lblInfo" Text="Location" Grid.Row="0" Grid.Column="0" />
-                <Label x:Name="lblArmy" Text="Army" Grid.Row="0" Grid.Column="1" />
-                <Label x:Name="lblPlayer" Text="Player" Grid.Row="1" Grid.Column="0" />
-                <Button Text="Action" BorderWidth="1" Grid.Row="1" Grid.Column="1"></Button>
-            </Grid>
-        </StackLayout>
+        <ScrollView Orientation="Both">
+            <AbsoluteLayout x:Name="alMain"></AbsoluteLayout>
+        </ScrollView>
     </ContentPage>
     <ContentPage Title="Option">
         <Grid>

@@ -12,9 +12,6 @@ namespace Cycle.Core.Models
         public int Worker { get; set; }
         public int Level { get; set; }
 
-        public int Cycle { get; set; }
-        public int Current { get; set; }
-
         public LocationTypes Type { get; set; }
         public SizeTypes Size { get; set; }
 
@@ -28,13 +25,6 @@ namespace Cycle.Core.Models
             this.Army = 0;
             this.Worker = 0;
             this.Level = 1;
-
-            this.Cycle = 100;
-            this.Current = 0;
-        }
-
-        public void SetCycle(int cycle) {
-            this.Cycle = cycle - ((this.Level + (int)this.Size) * 2);
         }
     }
 }
