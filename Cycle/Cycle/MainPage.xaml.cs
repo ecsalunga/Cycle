@@ -16,20 +16,17 @@ namespace Cycle
             InitializeComponent();
 
             this.Game = new Game();
-
-            this.alMain.Margin = new Thickness(25);
-            this.slMain.BackgroundColor = Color.Gray;
-
+            this.alMain.BackgroundColor = Color.Green;
+            this.imgBackground.Source = ImageSource.FromResource("Cycle.dirt.jpg");
+            this.imgBackground.Opacity = 0.8;
             this.loadLocations();
-
             this.Game.OnCycle += Game_OnCycle;
         }
 
         private void loadLocations()
         {
-            foreach (int key in this.Game.Locations.Keys)
+            foreach (LocationInfo location in this.Game.Locations)
             {
-                LocationInfo location = this.Game.Locations[key];
                 PlayerInfo player = this.Game.GetPlayer(location.Id);
 
                 int width = this.Game.Config.Width;
@@ -45,21 +42,17 @@ namespace Cycle
                 int widthAdjusted = width + adjustment;
                 int heigthAdjusted = height + adjustment;
 
-                Frame frame = new Frame();
-                frame.CornerRadius =  (float)(((widthAdjusted + heigthAdjusted) / 2) * 0.31);
-                frame.Margin = new Thickness(this.Game.Config.Margin);
-
-                if (location.Type == LocationTypes.Base)
-                    frame.BackgroundColor = Color.SteelBlue;
-                else if (location.Type == LocationTypes.Material)
-                    frame.BackgroundColor = Color.Gold;
-                else
-                    frame.BackgroundColor = Color.Silver;
-
-                frame.StyleId = location.Id.ToString();
+                Frame selector = new Frame() { BackgroundColor = Color.Gray, HasShadow = false };
+                selector.CornerRadius = (float)(((widthAdjusted + heigthAdjusted) / 2) * 0.31);
+                selector.Padding = new Thickness(2);
+                selector.Margin = new Thickness(this.Game.Config.Margin);
+                selector.StyleId = location.Id.ToString();
                 TapGestureRecognizer tap = new TapGestureRecognizer();
                 tap.Tapped += onTap;
-                frame.GestureRecognizers.Add(tap);
+                selector.GestureRecognizers.Add(tap);
+
+                Frame frame = new Frame() { BackgroundColor = Color.Teal };
+                frame.CornerRadius =  (float)(((widthAdjusted + heigthAdjusted) / 2) * 0.31);
 
                 Grid grid = new Grid();
                 grid.Margin = new Thickness(10);
@@ -68,6 +61,13 @@ namespace Cycle
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                if (location.Size == SizeTypes.Medium)
+                {
+                    Image img = new Image();
+                    img.Source = ImageSource.FromResource("Cycle.medium.jpg");
+                    grid.Children.Add(img);
+                }
 
                 Color color = Color.White;
                 if (player.Name == this.Game.Player.Name)
@@ -84,17 +84,25 @@ namespace Cycle
                 grid.Children.Add(lblLocationType, 0, 2);
 
                 frame.Content = grid;
+                selector.Content = frame;
+
                 Rectangle rec = new Rectangle(location.X * width, location.Y * height, widthAdjusted, heigthAdjusted);
-                AbsoluteLayout.SetLayoutBounds(frame, rec);
-                this.alMain.Children.Add(frame);
+                AbsoluteLayout.SetLayoutBounds(selector, rec);
+                this.alMain.Children.Add(selector);
             }
         }
 
         void onTap(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(((Element)sender).StyleId);
-            LocationInfo location = this.Game.GetLocation(id);
+            if (this.Game.Selected != null)
+                this.Game.Selected.BackgroundColor = Color.Gray;
+
+            this.Game.Selected = (Frame)sender;
+            this.Game.Selected.BackgroundColor = Color.White;
+            int id = Convert.ToInt32(this.Game.Selected.StyleId);
             PlayerInfo player = this.Game.GetPlayer(id);
+            LocationInfo location = this.Game.GetLocation(id);
+            this.Game.Location = location;
 
             lblInfo.Text = string.Format("X: {0}, Y: {1}, Cycle: {2}", location.X, location.Y, location.Cycle);
             lblArmy.Text = string.Format("Army: {0}", location.Army);
@@ -106,5 +114,7 @@ namespace Cycle
             lblMaterial.Text = string.Format("Material: {0}", this.Game.Player.Material);
             lblResource.Text = string.Format("Resource: {0}", this.Game.Player.Resource);
         }
+
+
     }
 }

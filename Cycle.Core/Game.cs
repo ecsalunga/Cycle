@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cycle.Core.Models;
+using Xamarin.Forms;
 
 namespace Cycle.Core
 {
@@ -9,8 +10,10 @@ namespace Cycle.Core
     {
         public ConfigInfo Config { get; set; }
         public PlayerInfo Player { get; set; }
+        public Frame Selected { get; set; }
+        public LocationInfo Location { get; set; }
         public List<PlayerInfo> Players { get; set; }
-        public Dictionary<int, LocationInfo> Locations { get; set; }
+        public List<LocationInfo> Locations { get; set; }
         private Random rnd = new Random();
         public event Action OnCycle;
         public Game()
@@ -33,9 +36,8 @@ namespace Cycle.Core
 
         private void updateData()
         {
-            foreach (int key in this.Locations.Keys)
+            foreach (LocationInfo location in this.Locations)
             {
-                LocationInfo location = this.Locations[key];
                 if (location.PlayerId > 0)
                 {
                     location.Current++;
@@ -65,7 +67,7 @@ namespace Cycle.Core
 
         public LocationInfo GetLocation(int id)
         {
-            return this.Locations[id];
+            return this.Locations.FirstOrDefault(item => item.Id == id);
         }
 
         public PlayerInfo GetPlayer(int locationId)
@@ -115,7 +117,7 @@ namespace Cycle.Core
 
         private void generateLocations(ConfigInfo config)
         {
-            this.Locations = new Dictionary<int, LocationInfo>();
+            this.Locations = new List<LocationInfo>();
             int count = 1;
             for (int y = 0; y < config.Y; y++)
             {
@@ -125,7 +127,7 @@ namespace Cycle.Core
                     info.PlayerId = config.EmptyId;
                     this.setRandomLocation(info);
                     info.SetCycle(this.Config.Cycle);
-                    this.Locations.Add(count, info);
+                    this.Locations.Add(info);
                     count++;
                 }
             }
