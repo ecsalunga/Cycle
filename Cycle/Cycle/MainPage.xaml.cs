@@ -17,10 +17,6 @@ namespace Cycle
         {
             InitializeComponent();
             this.Game = new Game();
-            this.alMain.BackgroundColor = Color.Green;
-            this.imgBackground.Source = ImageSource.FromResource("Cycle.bg.jpg");
-            this.imgBackground.Opacity = 0.8;
-            this.imgBackground.Aspect = Aspect.Fill;
             this.loadLocations();
             this.Game.OnCycle += Game_OnCycle;
         }
@@ -29,22 +25,9 @@ namespace Cycle
         {
             foreach (LocationInfo location in this.Game.Locations)
             {
-                PlayerInfo player = this.Game.GetPlayer(location.Id);
-
-                int width = this.Game.Config.Width;
-                int height = this.Game.Config.Height;
-
-                int adjustment = 0;
-                if (location.Size == SizeTypes.Large)
-                    adjustment = Convert.ToInt32(((width + height) / 2) * 0.1);
-                else if (location.Size == SizeTypes.Small)
-                    adjustment = Convert.ToInt32(((width + height) / 2) * -0.1);
-
-                int widthAdjusted = width + adjustment;
-                int heigthAdjusted = height + adjustment;
-
                 string locationType = location.Type.ToString().ToLower();
-                CircleImage img = new CircleImage();
+                PlayerInfo player = this.Game.GetPlayer(location.Id);
+                CircleImage img = new CircleImage() { BorderThickness = 5, ClassId = player.Name};
                 img.StyleId = location.Id.ToString();
                 int rnd = this.Game.RND.Next(1, 6);
                 img.Source = ImageSource.FromResource("Cycle." + locationType + rnd + ".jpg");
@@ -52,48 +35,57 @@ namespace Cycle
                 img.Aspect = Aspect.Fill;
                 img.BorderThickness = 3;
 
-                if(player.Name == this.Game.Player.Name)
-                {
-                    img.BorderThickness = 7;
-                    img.ClassId = player.Name;
-                    img.BorderColor = Color.Green;
-                }
-                else
+                if (player.Name == this.Game.Config.Empty)
                     img.BorderColor = Color.Transparent;
+                else if (player.Name == this.Game.Player.Name)
+                    img.BorderColor = Color.Green;
+                else
+                    img.BorderColor = Color.Red;
 
                 TapGestureRecognizer tap = new TapGestureRecognizer();
                 tap.Tapped += onTap;
                 img.GestureRecognizers.Add(tap);
+                location.UI = img;
 
-                Rectangle rec = new Rectangle(location.X * width, location.Y * height, widthAdjusted, heigthAdjusted);
+                int locRnd = this.Game.RND.Next(1, 101);
+                Rectangle rec = new Rectangle(((location.X - 1) * this.Game.Config.Width) + locRnd, ((location.Y - 1) * this.Game.Config.Height) + locRnd, location.Width, location.Height);
                 AbsoluteLayout.SetLayoutBounds(img, rec);
                 this.alLocations.Children.Add(img);
             }
         }
 
+        void btnFocus_OnTap(object sender, EventArgs e)
+        {
+            if (this.Game.Location != null)
+            {
+                this.svMain.ScrollToAsync(this.Game.Location.UI, ScrollToPosition.Center, true);
+            }
+        }
+
         void onTap(object sender, EventArgs e)
         {
-            if (this.Game.Selected != null)
+            if (this.Game.Location != null)
             {
-                if (this.Game.Selected.ClassId == this.Game.Player.Name)
-                    this.Game.Selected.BorderColor = Color.Green;
+                if (this.Game.Location.UI.ClassId == this.Game.Config.Empty)
+                {
+                    this.Game.Location.UI.BorderColor = Color.Transparent;
+                    this.Game.Location.UI.BorderThickness = 0;
+                }
+                if (this.Game.Location.UI.ClassId == this.Game.Player.Name)
+                    this.Game.Location.UI.BorderColor = Color.Green;
                 else
-                    this.Game.Selected.BorderColor = Color.Transparent;
+                    this.Game.Location.UI.BorderColor = Color.Red;
             }
-            
-            this.Game.Selected = (CircleImage)sender;
-           
-            int id = Convert.ToInt32(this.Game.Selected.StyleId);
+
+            CircleImage selected = (CircleImage)sender;
+            int id = Convert.ToInt32(selected.StyleId);
             PlayerInfo player = this.Game.GetPlayer(id);
             LocationInfo location = this.Game.GetLocation(id);
             this.Game.Location = location;
+            this.Game.Location.UI.BorderThickness = 5;
+            this.Game.Location.UI.BorderColor = Color.Blue;
 
-            if(location.IsOccupied && player.Name != this.Game.Player.Name)
-                this.Game.Selected.BorderColor = Color.Red;
-            else
-                this.Game.Selected.BorderColor = Color.Blue;
-
-            lblInfo.Text = string.Format("X: {0}, Y: {1}, Cycle: {2}", location.X, location.Y, location.Cycle);
+            lblInfo.Text = string.Format("X: {0}, Y: {1}, C: {2}", location.X, location.Y, location.Cycle);
             lblArmy.Text = string.Format("Army: {0}", location.Army);
             lblPlayer.Text = string.Format("Player: {0}", player.Name);
         }

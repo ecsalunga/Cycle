@@ -6,40 +6,42 @@
              x:Class="Cycle.MainPage">
     <ContentPage Title="World">
         <StackLayout>
-            <Grid Margin="5, 20, 5, 5">
+            <Grid Margin="5, 20, 5, 5" HeightRequest="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Label x:Name="lblMaterial" Text="Material" Grid.Row="0" Grid.Column="0" />
                 <Label x:Name="lblFood" Text="Food" Grid.Row="0" Grid.Column="1" />
             </Grid>
-            <ScrollView x:Name="slMain" Orientation="Both">
+            <ScrollView x:Name="svMain" Orientation="Both" BackgroundColor="Green">
                 <AbsoluteLayout x:Name="alMain">
-                    <Image x:Name="imgBackground" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" Aspect="AspectFill"/>
-                    <AbsoluteLayout x:Name="alLocations" Margin="200"></AbsoluteLayout>
+                    <Image x:Name="imgBackground" Source="{local:ImageResource Cycle.bg.jpg}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" Aspect="AspectFill"/>
+                    <AbsoluteLayout x:Name="alLocations" Margin="100"></AbsoluteLayout>
                 </AbsoluteLayout>
             </ScrollView>
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                </Grid.RowDefinitions>
-                <Label x:Name="lblInfo" Text="Location" Grid.Row="0" Grid.Column="0" />
-                <Button Text="Action" BorderWidth="1" Grid.Row="0" Grid.Column="1"></Button>
-                <Label x:Name="lblPlayer" Text="Player" Grid.Row="1" Grid.Column="0" />
-                <Label x:Name="lblArmy" Text="Army" Grid.Row="1" Grid.Column="1" />
-            </Grid>
+            <ScrollView Orientation="Vertical" HeightRequest="500">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label x:Name="lblInfo" Text="Location" Grid.Row="0" Grid.Column="0" />
+                    <Button Text="Focus" Clicked="btnFocus_OnTap" BorderWidth="1" Grid.Row="0" Grid.Column="1"></Button>
+                    <Label x:Name="lblPlayer" Text="Player" Grid.Row="1" Grid.Column="0" />
+                    <Label x:Name="lblArmy" Text="Army" Grid.Row="1" Grid.Column="1" />
+                </Grid>
+            </ScrollView>
         </StackLayout>
     </ContentPage>
-    <ContentPage Title="Option">
+    <ContentPage Title="Bases">
         <Button Text="Soon..."></Button>
     </ContentPage>
 </TabbedPage>

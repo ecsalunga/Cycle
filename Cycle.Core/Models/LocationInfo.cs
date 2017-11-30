@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ImageCircle.Forms.Plugin.Abstractions;
 namespace Cycle.Core.Models
 {
     public class LocationInfo
     {
         public int Id { get; set; }
         public int X { get; set; }
+        public int Height { get; set; }
         public int Y { get; set; }
+        public int Width { get; set; }
 
         public int PlayerId { get; set; }
         public int Army { get; set; }
@@ -18,6 +20,8 @@ namespace Cycle.Core.Models
         public LocationTypes Type { get; set; }
         public SizeTypes Size { get; set; }
         public bool IsOccupied { get; set; }
+
+        public CircleImage UI { get; set; }
 
         public LocationInfo(int id, int x, int y)
         {
@@ -37,6 +41,12 @@ namespace Cycle.Core.Models
 
         public void SetCycle(int cycle) {
             this.Cycle = cycle - ((this.Level + (int)this.Size) * 2);
+        }
+
+        public void SetSize(int height, int width)
+        {
+            this.Height = height;
+            this.Width = width;
         }
     }
 }

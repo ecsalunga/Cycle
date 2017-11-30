@@ -34,13 +34,12 @@ namespace Cycle.Core.Models
             this.Width = 400;
 
             this.LevelSpan = 10;
-
             this.SizeBase = 10;
             this.SizeSpan = 40;
             this.Speed = 500;
             this.Cycle = 20;
 
-            this.PlayerCount = 4;
+            this.PlayerCount = 7;
             this.PlayerResource = 100;
             this.PlayerMaterial = 100;
             this.PlayerArmy = 10;

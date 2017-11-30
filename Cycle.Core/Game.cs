@@ -10,11 +10,11 @@ namespace Cycle.Core
     {
         public ConfigInfo Config { get; set; }
         public PlayerInfo Player { get; set; }
-        public CircleImage Selected { get; set; }
         public LocationInfo Location { get; set; }
         public List<PlayerInfo> Players { get; set; }
         public List<LocationInfo> Locations { get; set; }
         public Random RND = new Random();
+
         public event Action OnCycle;
         public Game()
         {
@@ -114,20 +114,42 @@ namespace Cycle.Core
             location.Worker = this.Config.PlayerWorker;
             location.PlayerId = id;
             location.IsOccupied = true;
+            location.SetCycle(this.Config.Cycle);
+            location.SetSize(this.Config.Height, this.Config.Width);
         }
 
         private void generateLocations(ConfigInfo config)
         {
             this.Locations = new List<LocationInfo>();
             int count = 1;
-            for (int y = 0; y < config.Y; y++)
+            int width = this.Config.Width;
+            int height = this.Config.Height;
+            int large = Convert.ToInt32(((width + height) / 2) * 0.1);
+            int small = Convert.ToInt32(((width + height) / 2) * -0.1);
+
+            for (int y = 1; y <= config.Y; y++)
             {
-                for (int x = 0; x < config.X; x++)
+                for (int x = 1; x <= config.X; x++)
                 {
                     LocationInfo info = new LocationInfo(count, x, y);
                     info.PlayerId = config.EmptyId;
                     this.setRandomLocation(info);
+
+                    int locationHeigth = height;
+                    int locationWidth = width;
+                    if (info.Size == SizeTypes.Large)
+                    {
+                        locationHeigth += large;
+                        locationWidth += large;
+                    }
+                    else if (info.Size == SizeTypes.Small)
+                    {
+                        locationHeigth += small;
+                        locationWidth += small;
+                    }
+
                     info.SetCycle(this.Config.Cycle);
+                    info.SetSize(locationHeigth, locationWidth);
                     this.Locations.Add(info);
                     count++;
                 }
