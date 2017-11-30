@@ -12,31 +12,16 @@ namespace Cycle
     public partial class MainPage : TabbedPage
     {
         public Game Game { get; set; }
-        public string Source { get; set; }
-
-        public object ProvideValue(IServiceProvider serviceProvider)
-        {
-            if (Source == null)
-            {
-                return null;
-            }
-            // Do your translation lookup here, using whatever method you require
-            var imageSource = ImageSource.FromResource(Source);
-
-            return imageSource;
-        }
 
         public MainPage()
         {
             InitializeComponent();
-
             this.Game = new Game();
             this.alMain.BackgroundColor = Color.Green;
             this.imgBackground.Source = ImageSource.FromResource("Cycle.bg.jpg");
             this.imgBackground.Opacity = 0.8;
             this.imgBackground.Aspect = Aspect.Fill;
             this.loadLocations();
-            this.alLocations.Margin = new Thickness(300);
             this.Game.OnCycle += Game_OnCycle;
         }
 

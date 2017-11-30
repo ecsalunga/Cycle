@@ -20,7 +20,7 @@
             <ScrollView x:Name="slMain" Orientation="Both">
                 <AbsoluteLayout x:Name="alMain">
                     <Image x:Name="imgBackground" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" Aspect="AspectFill"/>
-                    <AbsoluteLayout x:Name="alLocations"></AbsoluteLayout>
+                    <AbsoluteLayout x:Name="alLocations" Margin="200"></AbsoluteLayout>
                 </AbsoluteLayout>
             </ScrollView>
             <Grid Margin="5">
