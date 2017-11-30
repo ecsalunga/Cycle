@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:local="clr-namespace:Cycle;assembly=Cycle"
              x:Class="Cycle.MainPage">
-    <ContentPage Title="World">
+    <ContentPage Title="World" x:Name="cpWorld">
         <StackLayout>
             <Grid Margin="5, 20, 5, 5" HeightRequest="20">
                 <Grid.ColumnDefinitions>
@@ -41,7 +41,32 @@
             </ScrollView>
         </StackLayout>
     </ContentPage>
-    <ContentPage Title="Bases">
-        <Button Text="Soon..."></Button>
+    <ContentPage Title="Bases" x:Name="cpBases">
+        <ListView x:Name="lvBases" RowHeight="125">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <ViewCell>
+                  <Grid Padding="10" RowSpacing="10" ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="100"/>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="45"/>
+                      <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+                           
+                    <controls:CircleImage Source="{local:ImageResource Cycle.images.base.base1.jpg}"
+                    Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" />
+
+                    <Label Text="{Binding UIData}" Grid.Column="1" Grid.Row="0" />
+                    <ProgressBar Progress="{Binding Progress}" Grid.Column="1" Grid.Row="1"/>
+                    <Button ClassId="{Binding Id}" Text="Select" Clicked="btnSelect_OnTap" BorderWidth="1" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"></Button>
+                  </Grid>
+                </ViewCell>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
     </ContentPage>
 </TabbedPage>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Cycle.Core.Models;
 using ImageCircle.Forms.Plugin.Abstractions;
@@ -13,12 +14,14 @@ namespace Cycle.Core
         public LocationInfo Location { get; set; }
         public List<PlayerInfo> Players { get; set; }
         public List<LocationInfo> Locations { get; set; }
+        public ObservableCollection<LocationInfo> Bases { get; set; }
         public Random RND = new Random();
 
         public event Action OnCycle;
         public Game()
         {
             this.Config = new ConfigInfo();
+            this.Bases = new ObservableCollection<LocationInfo>();
             this.generateLocations(this.Config);
             this.generatePlayers(this.Config);
 
@@ -41,6 +44,7 @@ namespace Cycle.Core
                 if (location.PlayerId > 0)
                 {
                     location.Current++;
+                    location.UpdateUIData();
                     if (location.Current >= location.Cycle)
                     {
                         location.Current = 0;

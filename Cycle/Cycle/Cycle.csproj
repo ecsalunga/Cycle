@@ -49,22 +49,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="base1.jpg" />
-    <EmbeddedResource Include="base2.jpg" />
-    <EmbeddedResource Include="base3.jpg" />
-    <EmbeddedResource Include="food1.jpg" />
-    <EmbeddedResource Include="food2.jpg" />
-    <EmbeddedResource Include="food3.jpg" />
-    <EmbeddedResource Include="material1.jpg" />
-    <EmbeddedResource Include="material2.jpg" />
-    <EmbeddedResource Include="material3.jpg" />
-    <EmbeddedResource Include="base4.jpg" />
-    <EmbeddedResource Include="base5.jpg" />
     <EmbeddedResource Include="bg.jpg" />
-    <EmbeddedResource Include="food4.jpg" />
-    <EmbeddedResource Include="food5.jpg" />
-    <EmbeddedResource Include="material4.jpg" />
-    <EmbeddedResource Include="material5.jpg" />
+    <EmbeddedResource Include="images\base\base1.jpg" />
+    <EmbeddedResource Include="images\base\base2.jpg" />
+    <EmbeddedResource Include="images\base\base3.jpg" />
+    <EmbeddedResource Include="images\base\base4.jpg" />
+    <EmbeddedResource Include="images\base\base5.jpg" />
+    <EmbeddedResource Include="images\food\food1.jpg" />
+    <EmbeddedResource Include="images\food\food2.jpg" />
+    <EmbeddedResource Include="images\food\food3.jpg" />
+    <EmbeddedResource Include="images\food\food4.jpg" />
+    <EmbeddedResource Include="images\food\food5.jpg" />
+    <EmbeddedResource Include="images\material\material1.jpg" />
+    <EmbeddedResource Include="images\material\material2.jpg" />
+    <EmbeddedResource Include="images\material\material3.jpg" />
+    <EmbeddedResource Include="images\material\material4.jpg" />
+    <EmbeddedResource Include="images\material\material5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cycle.Core\Cycle.Core.csproj">
@@ -96,6 +96,12 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\" />
+    <Folder Include="images\base\" />
+    <Folder Include="images\food\" />
+    <Folder Include="images\material\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.5.0.91635\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.5.0.91635\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
