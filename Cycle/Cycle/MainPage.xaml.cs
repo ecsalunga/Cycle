@@ -46,6 +46,7 @@ namespace Cycle
                 img.StyleId = location.Id.ToString();
                 int rnd = this.Game.RND.Next(1, 6);
                 img.Source = ImageSource.FromResource("Cycle.images." + locationType + "." + locationType + rnd + ".jpg");
+                location.ImgSource = ImageSource.FromResource("Cycle.images." + locationType + "." + locationType + rnd + ".jpg");
                 img.Margin = new Thickness(this.Game.Config.Margin);
                 img.Aspect = Aspect.Fill;
                 img.BorderThickness = 3;

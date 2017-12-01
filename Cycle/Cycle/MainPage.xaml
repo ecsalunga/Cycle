@@ -63,7 +63,9 @@
                       <RowDefinition Height="45"/>
                       <RowDefinition Height="45"/>
                     </Grid.RowDefinitions>
-                    <controls:CircleImage Source="{Binding UI.Source}" Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" />
+
+                    <controls:CircleImage Source="{Binding ImgSource}"
+                    Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" />
                     <Label Text="{Binding UIData}" Grid.Column="1" Grid.Row="0" />
                     <ProgressBar Progress="{Binding Progress}" Grid.Column="1" Grid.Row="1"/>
                     <Button ClassId="{Binding Id}" Text="Select" Clicked="btnSelect_OnTap" BorderWidth="1" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"></Button>

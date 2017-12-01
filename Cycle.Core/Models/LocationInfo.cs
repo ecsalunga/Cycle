@@ -47,6 +47,8 @@ namespace Cycle.Core.Models
 
         public CircleImage UI { get; set; }
 
+        public ImageSource ImgSource { get; set; }
+
         public LocationInfo(int id, int x, int y)
         {
             this.Id = id;
