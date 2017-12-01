@@ -120,6 +120,7 @@ namespace Cycle.Core
             location.PlayerId = id;
             location.IsOccupied = true;
             location.SetCycle(this.Config.Cycle);
+            location.Current = RND.Next(0, location.Cycle);
             location.SetSize(this.Config.Height, this.Config.Width);
         }
 

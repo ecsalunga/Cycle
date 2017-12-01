@@ -32,13 +32,13 @@ namespace Cycle.Core.Models
             this.Margin = 150;
             this.Height = 500;
             this.Width = 500;
-            this.StartSize = 0.7;
+            this.StartSize = 0.8;
 
             this.LevelSpan = 10;
             this.SizeBase = 10;
             this.SizeSpan = 40;
             this.Speed = 500;
-            this.Cycle = 20;
+            this.Cycle = 30;
 
             this.PlayerCount = 7;
             this.PlayerResource = 100;

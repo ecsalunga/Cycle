@@ -62,7 +62,6 @@ namespace Cycle
                     img.BorderColor = Color.Red;
 
                 TapGestureRecognizer tap = new TapGestureRecognizer();
-
                 tap.Tapped += onTap;
                 img.GestureRecognizers.Add(tap);
                 location.UI = img;
@@ -80,7 +79,7 @@ namespace Cycle
             foreach (LocationInfo location in this.Game.Locations)
             {
                 location.UI.Margin = new Thickness(margin);
-                int locRnd = this.Game.RND.Next(1, 101);
+                int locRnd = this.Game.RND.Next(1, Convert.ToInt32(this.Game.CurrentSize * 100));
                 Rectangle rec = new Rectangle(((location.X - 1) * width) + locRnd, ((location.Y - 1) * height) + locRnd, width, height);
                 AbsoluteLayout.SetLayoutBounds(location.UI, rec);
             }
@@ -95,13 +94,13 @@ namespace Cycle
         {
             if (isDown)
             {
-                this.Game.CurrentSize = this.Game.CurrentSize - 0.1;
+                this.Game.CurrentSize = this.Game.CurrentSize - 0.2;
                 if (this.Game.CurrentSize <= 0.4)
                     isDown = false;
             }
             else
             {
-                this.Game.CurrentSize = this.Game.CurrentSize + 0.1;
+                this.Game.CurrentSize = this.Game.CurrentSize + 0.2;
                 if (this.Game.CurrentSize >= 1)
                     isDown = true;
             }
@@ -128,9 +127,9 @@ namespace Cycle
             PlayerInfo player = this.Game.GetPlayer(this.Game.Location.Id);
             this.Game.Location.UI.BorderThickness = 5;
             this.Game.Location.UI.BorderColor = Color.Blue;
+            lblPlayer.Text = string.Format("{0}", player.Name);
             lblInfo.Text = string.Format("X: {0}, Y: {1}, C: {2}", this.Game.Location.X, this.Game.Location.Y, this.Game.Location.Cycle);
-            lblArmy.Text = string.Format("Army: {0}", this.Game.Location.Army);
-            lblPlayer.Text = string.Format("Player: {0}", player.Name);
+            lblArmy.Text = string.Format("Army: {0}, Worker: {1}", this.Game.Location.Army, this.Game.Location.Worker);
         }
 
         void focusOnBase() {
@@ -158,10 +157,6 @@ namespace Cycle
             this.setLocation(id);
             this.selectBase();
         }
-        void onDblTap(object sender, EventArgs e)
-        {
-            alMain.Scale = 1;
-        }
 
         void setLocation(int id) {
             LocationInfo location = this.Game.GetLocation(id);
@@ -172,6 +167,7 @@ namespace Cycle
         {
             lblMaterial.Text = string.Format("Material: {0}", this.Game.Player.Material);
             lblFood.Text = string.Format("Food: {0}", this.Game.Player.Food);
+            pbSelected.Progress = this.Game.Location.Progress;
         }
 
     }
