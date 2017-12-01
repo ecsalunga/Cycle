@@ -20,7 +20,7 @@ namespace Cycle.Core.Models
         public int PlayerMaterial { get; set; }
         public int PlayerArmy { get; set; }
         public int PlayerWorker { get; set; }
-        
+        public double StartSize { get; set; }
 
         public ConfigInfo()
         {
@@ -29,9 +29,10 @@ namespace Cycle.Core.Models
 
             this.X = 10;
             this.Y = 10;
-            this.Margin = 125;
-            this.Height = 400;
-            this.Width = 400;
+            this.Margin = 150;
+            this.Height = 500;
+            this.Width = 500;
+            this.StartSize = 0.7;
 
             this.LevelSpan = 10;
             this.SizeBase = 10;

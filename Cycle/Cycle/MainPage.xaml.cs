@@ -12,22 +12,37 @@ namespace Cycle
     public partial class MainPage : TabbedPage
     {
         public Game Game { get; set; }
+        bool isDown = true;
 
         public MainPage()
         {
             InitializeComponent();
             this.Game = new Game();
+            
             this.loadLocations();
             this.Game.OnCycle += Game_OnCycle;
         }
 
         private void loadLocations()
         {
+            this.lvBases.ItemsSource = this.Game.Bases;
+            generateLocations();
+            Device.StartTimer(TimeSpan.FromMilliseconds(2000), () =>
+            {
+                alMain.Children.Add(alLocations);
+                this.selectBase();
+                this.focusOnBase();
+                return false;
+            });
+        }
+
+        private void generateLocations()
+        {
             foreach (LocationInfo location in this.Game.Locations)
             {
                 string locationType = location.Type.ToString().ToLower();
                 PlayerInfo player = this.Game.GetPlayer(location.Id);
-                CircleImage img = new CircleImage() { BorderThickness = 5, ClassId = player.Name};
+                CircleImage img = new CircleImage() { BorderThickness = 5, ClassId = player.Name };
                 img.StyleId = location.Id.ToString();
                 int rnd = this.Game.RND.Next(1, 6);
                 img.Source = ImageSource.FromResource("Cycle.images." + locationType + "." + locationType + rnd + ".jpg");
@@ -47,24 +62,28 @@ namespace Cycle
                     img.BorderColor = Color.Red;
 
                 TapGestureRecognizer tap = new TapGestureRecognizer();
+
                 tap.Tapped += onTap;
                 img.GestureRecognizers.Add(tap);
                 location.UI = img;
-
-                int locRnd = this.Game.RND.Next(1, 101);
-                Rectangle rec = new Rectangle(((location.X - 1) * this.Game.Config.Width) + locRnd, ((location.Y - 1) * this.Game.Config.Height) + locRnd, location.Width, location.Height);
-                AbsoluteLayout.SetLayoutBounds(img, rec);
-                this.alLocations.Children.Add(img);
+                alLocations.Children.Add(img);
             }
 
-            this.lvBases.ItemsSource = this.Game.Bases;
+            this.paintLocations();
+        }
 
-            Xamarin.Forms.Device.StartTimer(TimeSpan.FromMilliseconds(2000), () =>
+        void paintLocations()
+        {
+            int width = Convert.ToInt32(this.Game.Config.Width * this.Game.CurrentSize);
+            int height = Convert.ToInt32(this.Game.Config.Height * this.Game.CurrentSize);
+            int margin = Convert.ToInt32(this.Game.Config.Margin * this.Game.CurrentSize);
+            foreach (LocationInfo location in this.Game.Locations)
             {
-                this.selectBase();
-                this.focusOnBase();
-                return false;
-            });
+                location.UI.Margin = new Thickness(margin);
+                int locRnd = this.Game.RND.Next(1, 101);
+                Rectangle rec = new Rectangle(((location.X - 1) * width) + locRnd, ((location.Y - 1) * height) + locRnd, width, height);
+                AbsoluteLayout.SetLayoutBounds(location.UI, rec);
+            }
         }
 
         void btnFocus_OnTap(object sender, EventArgs e)
@@ -72,9 +91,32 @@ namespace Cycle
             this.focusOnBase();
         }
 
+        void stepSize()
+        {
+            if (isDown)
+            {
+                this.Game.CurrentSize = this.Game.CurrentSize - 0.1;
+                if (this.Game.CurrentSize <= 0.4)
+                    isDown = false;
+            }
+            else
+            {
+                this.Game.CurrentSize = this.Game.CurrentSize + 0.1;
+                if (this.Game.CurrentSize >= 1)
+                    isDown = true;
+            }
+        }
+        void btnResize_OnTap(object sender, EventArgs e)
+        {
+            this.stepSize();
+            this.paintLocations();
+            this.focusOnBase();
+        }
+
         void btnSelect_OnTap(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(((Element)sender).ClassId);
+            this.deselectBase();
             this.setLocation(id);
             this.selectBase();
             this.CurrentPage = cpWorld;
@@ -95,7 +137,7 @@ namespace Cycle
             this.svMain.ScrollToAsync(this.Game.Location.UI, ScrollToPosition.Center, true);
         }
 
-        void onTap(object sender, EventArgs e)
+        void deselectBase()
         {
             if (this.Game.Location.UI.ClassId == this.Game.Config.Empty)
             {
@@ -106,11 +148,19 @@ namespace Cycle
                 this.Game.Location.UI.BorderColor = Color.Green;
             else
                 this.Game.Location.UI.BorderColor = Color.Red;
+        }
 
+        void onTap(object sender, EventArgs e)
+        {
+            this.deselectBase();
             CircleImage selected = (CircleImage)sender;
             int id = Convert.ToInt32(selected.StyleId);
             this.setLocation(id);
             this.selectBase();
+        }
+        void onDblTap(object sender, EventArgs e)
+        {
+            alMain.Scale = 1;
         }
 
         void setLocation(int id) {

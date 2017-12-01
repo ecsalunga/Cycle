@@ -20,7 +20,7 @@
             <ScrollView x:Name="svMain" Orientation="Both" BackgroundColor="Green">
                 <AbsoluteLayout x:Name="alMain">
                     <Image x:Name="imgBackground" Source="{local:ImageResource Cycle.bg.jpg}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" Aspect="AspectFill"/>
-                    <AbsoluteLayout x:Name="alLocations" Margin="100"></AbsoluteLayout>
+                    <AbsoluteLayout x:Name="alLocations" Margin="200"></AbsoluteLayout>
                 </AbsoluteLayout>
             </ScrollView>
             <ScrollView Orientation="Vertical" HeightRequest="500">
@@ -33,10 +33,11 @@
                         <RowDefinition Height="50" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <Label x:Name="lblInfo" Text="Location" Grid.Row="0" Grid.Column="0" />
+                    <Button Text="Resize" Clicked="btnResize_OnTap" BorderWidth="1" Grid.Row="0" Grid.Column="0"></Button>
                     <Button Text="Focus" Clicked="btnFocus_OnTap" BorderWidth="1" Grid.Row="0" Grid.Column="1"></Button>
                     <Label x:Name="lblPlayer" Text="Player" Grid.Row="1" Grid.Column="0" />
                     <Label x:Name="lblArmy" Text="Army" Grid.Row="1" Grid.Column="1" />
+                    <Label x:Name="lblInfo" Text="Location" Grid.Row="2" Grid.Column="0" />
                 </Grid>
             </ScrollView>
         </StackLayout>
