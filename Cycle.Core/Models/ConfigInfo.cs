@@ -5,27 +5,32 @@ namespace Cycle.Core.Models
     {
         public string Empty { get; set; }
         public int EmptyId { get; set; }
-        public int Cycle { get; set; }
+        public int EmptyArmy { get; set; }
+
         public int X { get; set; }
         public int Y { get; set; }
         public int Margin { get; set; }
         public int Height { get; set; }
         public int Width { get; set; }
-        public int LevelSpan { get; set; }
-        public int SizeBase { get; set; }
-        public int SizeSpan { get; set; }
+        public double StartSize { get; set; }
+
+        public double LevelSpan { get; set; }
+        public double SizeSpan { get; set; }
+        public int MaxLevel { get; set; }
         public int Speed { get; set; }
+        public int Cycle { get; set; }
+
         public int PlayerCount { get; set; }
         public int PlayerResource { get; set; }
         public int PlayerMaterial { get; set; }
         public int PlayerArmy { get; set; }
         public int PlayerWorker { get; set; }
-        public double StartSize { get; set; }
 
         public ConfigInfo()
         {
             this.Empty = "empty";
             this.EmptyId = 0;
+            this.EmptyArmy = 50;
 
             this.X = 10;
             this.Y = 10;
@@ -34,9 +39,9 @@ namespace Cycle.Core.Models
             this.Width = 500;
             this.StartSize = 0.8;
 
-            this.LevelSpan = 10;
-            this.SizeBase = 10;
-            this.SizeSpan = 40;
+            this.LevelSpan = 0.1;
+            this.SizeSpan = 0.2;
+            this.MaxLevel = 4;
             this.Speed = 500;
             this.Cycle = 30;
 
@@ -45,6 +50,16 @@ namespace Cycle.Core.Models
             this.PlayerMaterial = 100;
             this.PlayerArmy = 10;
             this.PlayerWorker = 10;
+        }
+
+        public void SetCycle(LocationInfo location)
+        {
+            location.Cycle = Convert.ToInt32(this.Cycle - ((location.Level * this.LevelSpan) * ((int)location.Size * this.SizeSpan)));
+        }
+
+        public void SetArmy(LocationInfo location) 
+        {
+            location.Army = Convert.ToInt32(this.EmptyArmy + (this.EmptyArmy * ((int)location.Size * this.SizeSpan)));
         }
     }
 }

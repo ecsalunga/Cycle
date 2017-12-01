@@ -119,7 +119,7 @@ namespace Cycle.Core
             location.Worker = this.Config.PlayerWorker;
             location.PlayerId = id;
             location.IsOccupied = true;
-            location.SetCycle(this.Config.Cycle);
+            this.Config.SetCycle(location);
             location.Current = RND.Next(0, location.Cycle);
             location.SetSize(this.Config.Height, this.Config.Width);
         }
@@ -137,26 +137,27 @@ namespace Cycle.Core
             {
                 for (int x = 1; x <= config.X; x++)
                 {
-                    LocationInfo info = new LocationInfo(count, x, y);
-                    info.PlayerId = config.EmptyId;
-                    this.setRandomLocation(info);
+                    LocationInfo location = new LocationInfo(count, x, y);
+                    location.PlayerId = config.EmptyId;
+                    this.setRandomLocation(location);
 
                     int locationHeigth = height;
                     int locationWidth = width;
-                    if (info.Size == SizeTypes.Large)
+                    if (location.Size == SizeTypes.Large)
                     {
                         locationHeigth += large;
                         locationWidth += large;
                     }
-                    else if (info.Size == SizeTypes.Small)
+                    else if (location.Size == SizeTypes.Small)
                     {
                         locationHeigth += small;
                         locationWidth += small;
                     }
 
-                    info.SetCycle(this.Config.Cycle);
-                    info.SetSize(locationHeigth, locationWidth);
-                    this.Locations.Add(info);
+                    this.Config.SetCycle(location);
+                    this.Config.SetArmy(location);
+                    location.SetSize(locationHeigth, locationWidth);
+                    this.Locations.Add(location);
                     count++;
                 }
             }

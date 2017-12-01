@@ -27,13 +27,9 @@ namespace Cycle
         {
             this.lvBases.ItemsSource = this.Game.Bases;
             generateLocations();
-            Device.StartTimer(TimeSpan.FromMilliseconds(2000), () =>
-            {
-                alMain.Children.Add(alLocations);
-                this.selectBase();
-                this.focusOnBase();
-                return false;
-            });
+            alMain.Children.Add(alLocations);
+            this.selectBase();
+            this.focusOnBase();
         }
 
         private void generateLocations()
@@ -74,14 +70,18 @@ namespace Cycle
 
         void paintLocations()
         {
+            int margin = Convert.ToInt32(this.Game.Config.Margin * this.Game.CurrentSize);
             int width = Convert.ToInt32(this.Game.Config.Width * this.Game.CurrentSize);
             int height = Convert.ToInt32(this.Game.Config.Height * this.Game.CurrentSize);
-            int margin = Convert.ToInt32(this.Game.Config.Margin * this.Game.CurrentSize);
+
             foreach (LocationInfo location in this.Game.Locations)
             {
+                int lWidth = Convert.ToInt32(location.Width * this.Game.CurrentSize);
+                int lHeight = Convert.ToInt32(location.Height * this.Game.CurrentSize);
+
                 location.UI.Margin = new Thickness(margin);
                 int locRnd = this.Game.RND.Next(1, Convert.ToInt32(this.Game.CurrentSize * 100));
-                Rectangle rec = new Rectangle(((location.X - 1) * width) + locRnd, ((location.Y - 1) * height) + locRnd, width, height);
+                Rectangle rec = new Rectangle(((location.X - 1) * width) + locRnd, ((location.Y - 1) * height) + locRnd, lWidth, lHeight);
                 AbsoluteLayout.SetLayoutBounds(location.UI, rec);
             }
         }
@@ -113,7 +113,7 @@ namespace Cycle
             this.focusOnBase();
         }
 
-        void btnSelect_OnTap(object sender, EventArgs e)
+        void btnMap_OnTap(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(((Element)sender).ClassId);
             this.deselectBase();
@@ -121,6 +121,15 @@ namespace Cycle
             this.selectBase();
             this.CurrentPage = cpWorld;
             this.focusOnBase();
+        }
+
+        void btnView_OnTap(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(((Element)sender).ClassId);
+            this.deselectBase();
+            this.setLocation(id);
+            this.selectBase();
+            this.CurrentPage = cpOption;
         }
 
         void selectBase() 
@@ -134,7 +143,11 @@ namespace Cycle
         }
 
         void focusOnBase() {
-            this.svMain.ScrollToAsync(this.Game.Location.UI, ScrollToPosition.Center, true);
+            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+            {
+                this.svMain.ScrollToAsync(this.Game.Location.UI, ScrollToPosition.Center, true);
+                return false;
+            });
         }
 
         void deselectBase()

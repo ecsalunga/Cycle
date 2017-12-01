@@ -49,30 +49,36 @@
         </StackLayout>
     </ContentPage>
     <ContentPage Title="Bases" x:Name="cpBases">
-        <ListView x:Name="lvBases" RowHeight="125">
+        <ListView x:Name="lvBases" RowHeight="150">
             <ListView.ItemTemplate>
               <DataTemplate>
                 <ViewCell>
                   <Grid Padding="10" RowSpacing="10" ColumnSpacing="5">
                     <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="100"/>
+                      <ColumnDefinition Width="80"/>
                       <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="100"/>
                       <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                      <RowDefinition Height="45"/>
-                      <RowDefinition Height="45"/>
+                      <RowDefinition Height="75"/>
+                      <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <controls:CircleImage Source="{Binding ImgSource}"
-                    Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" />
-                    <Label Text="{Binding UIData}" Grid.Column="1" Grid.Row="0" />
-                    <ProgressBar Progress="{Binding Progress}" Grid.Column="1" Grid.Row="1"/>
-                    <Button ClassId="{Binding Id}" Text="Select" Clicked="btnSelect_OnTap" BorderWidth="1" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"></Button>
+                    Aspect="AspectFill" Grid.Column="0" Grid.Row="0" />
+                    <Button ClassId="{Binding Id}" Text="Map" Clicked="btnMap_OnTap" BorderWidth="1" Grid.Column="2" Grid.Row="0"></Button>
+                    <Button ClassId="{Binding Id}" Text="View" Clicked="btnView_OnTap" BorderWidth="1" Grid.Column="3" Grid.Row="0"></Button>
+
+                    <Label Text="{Binding UIData}" Grid.Row="1" Grid.ColumnSpan="4" />
+                    <ProgressBar Progress="{Binding Progress}" Grid.Row="2" Grid.ColumnSpan="4" />
                   </Grid>
                 </ViewCell>
               </DataTemplate>
             </ListView.ItemTemplate>
           </ListView>
+    </ContentPage>
+    <ContentPage Title="Option" x:Name="cpOption">
+        <Button Text="Soon"></Button>
     </ContentPage>
 </TabbedPage>

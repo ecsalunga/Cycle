@@ -70,10 +70,6 @@ namespace Cycle.Core.Models
             this.Progress = ((double)this.Current / this.Cycle);
         }
 
-        public void SetCycle(int cycle) {
-            this.Cycle = cycle - ((this.Level + (int)this.Size) * 2);
-        }
-
         public void SetSize(int height, int width)
         {
             this.Height = height;
