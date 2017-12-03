@@ -66,7 +66,7 @@ namespace Cycle.Core.Models
         }
 
         public void UpdateUIData() {
-            this.UIData = string.Format("Army: {0}, Worker: {1}", Army, Worker);
+            this.UIData = string.Format("(X:{0}, Y:{1}), Army: {2}, Worker: {3}",X, Y, Army, Worker);
             this.Progress = ((double)this.Current / this.Cycle);
         }
 

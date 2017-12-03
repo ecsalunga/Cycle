@@ -156,6 +156,7 @@ namespace Cycle.Core
 
                     this.Config.SetCycle(location);
                     this.Config.SetArmy(location);
+                    location.Army = RND.Next(1, location.Army * 2);
                     location.SetSize(locationHeigth, locationWidth);
                     this.Locations.Add(location);
                     count++;

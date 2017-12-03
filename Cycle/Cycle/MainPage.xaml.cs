@@ -29,7 +29,11 @@ namespace Cycle
             generateLocations();
             alMain.Children.Add(alLocations);
             this.selectBase();
-            this.focusOnBase();
+            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+            {
+                this.focusOnBase();
+                return false;
+            });
         }
 
         private void generateLocations()
@@ -38,21 +42,19 @@ namespace Cycle
             {
                 string locationType = location.Type.ToString().ToLower();
                 PlayerInfo player = this.Game.GetPlayer(location.Id);
-                CircleImage img = new CircleImage() { BorderThickness = 5, ClassId = player.Name };
+                CircleImage img = new CircleImage() { BorderThickness = 3, ClassId = player.Id.ToString() };
                 img.StyleId = location.Id.ToString();
                 int rnd = this.Game.RND.Next(1, 6);
                 img.Source = ImageSource.FromResource("Cycle.images." + locationType + "." + locationType + rnd + ".jpg");
                 location.ImgSource = ImageSource.FromResource("Cycle.images." + locationType + "." + locationType + rnd + ".jpg");
                 img.Margin = new Thickness(this.Game.Config.Margin);
                 img.Aspect = Aspect.Fill;
-                img.BorderThickness = 3;
 
                 if (player.Name == this.Game.Config.Empty)
                     img.BorderColor = Color.Transparent;
                 else if (player.Name == this.Game.Player.Name)
                 {
                     img.BorderColor = Color.Green;
-                    this.Game.Location = location;
                     this.Game.Bases.Add(location);
                 }
                 else
@@ -64,6 +66,8 @@ namespace Cycle
                 location.UI = img;
                 alLocations.Children.Add(img);
             }
+
+            this.Game.Location = this.Game.Bases[0];
 
             this.paintLocations();
         }
@@ -110,7 +114,11 @@ namespace Cycle
         {
             this.stepSize();
             this.paintLocations();
-            this.focusOnBase();
+            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+            {
+                this.focusOnBase();
+                return false;
+            });
         }
 
         void btnMap_OnTap(object sender, EventArgs e)
@@ -143,21 +151,17 @@ namespace Cycle
         }
 
         void focusOnBase() {
-            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
-            {
-                this.svMain.ScrollToAsync(this.Game.Location.UI, ScrollToPosition.Center, true);
-                return false;
-            });
+            this.svMain.ScrollToAsync(this.Game.Location.UI, ScrollToPosition.Center, true);
         }
 
         void deselectBase()
         {
-            if (this.Game.Location.UI.ClassId == this.Game.Config.Empty)
+            if (this.Game.Location.UI.ClassId == this.Game.Config.EmptyId.ToString())
             {
                 this.Game.Location.UI.BorderColor = Color.Transparent;
                 this.Game.Location.UI.BorderThickness = 0;
             }
-            if (this.Game.Location.UI.ClassId == this.Game.Player.Name)
+            if (this.Game.Location.UI.ClassId == this.Game.Player.Id.ToString())
                 this.Game.Location.UI.BorderColor = Color.Green;
             else
                 this.Game.Location.UI.BorderColor = Color.Red;
@@ -173,8 +177,7 @@ namespace Cycle
         }
 
         void setLocation(int id) {
-            LocationInfo location = this.Game.GetLocation(id);
-            this.Game.Location = location;
+            this.Game.Location = this.Game.GetLocation(id);
         }
 
         void Game_OnCycle()
@@ -183,6 +186,5 @@ namespace Cycle
             lblFood.Text = string.Format("Food: {0}", this.Game.Player.Food);
             pbSelected.Progress = this.Game.Location.Progress;
         }
-
     }
 }

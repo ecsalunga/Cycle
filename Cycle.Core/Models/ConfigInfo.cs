@@ -37,7 +37,7 @@ namespace Cycle.Core.Models
             this.Margin = 150;
             this.Height = 500;
             this.Width = 500;
-            this.StartSize = 0.8;
+            this.StartSize = 1;
 
             this.LevelSpan = 0.1;
             this.SizeSpan = 0.2;
@@ -45,7 +45,7 @@ namespace Cycle.Core.Models
             this.Speed = 500;
             this.Cycle = 30;
 
-            this.PlayerCount = 7;
+            this.PlayerCount = 10;
             this.PlayerResource = 100;
             this.PlayerMaterial = 100;
             this.PlayerArmy = 10;
